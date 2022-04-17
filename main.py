@@ -5,12 +5,22 @@ import win32con
 
 name = argv[-1]
 
-pf_cat = search('C:\Program Files', name)
-pfx86_cat = search('C:\Program Files (x86)', name)
-pf = parse_reg(name, win32con.HKEY_LOCAL_MACHINE, win32con.KEY_WOW64_32KEY)
-pfx86 = parse_reg(name, win32con.HKEY_LOCAL_MACHINE, win32con.KEY_WOW64_64KEY)
+# pf_cat = search('C:\Program Files', name)
+# pfx86_cat = search('C:\Program Files (x86)', name)
+# pf = parse_reg(name, win32con.HKEY_LOCAL_MACHINE, win32con.KEY_WOW64_32KEY)
+# pfx86 = parse_reg(name, win32con.HKEY_LOCAL_MACHINE, win32con.KEY_WOW64_64KEY)
 
-print(f'Detected {len(pf_cat) + len(pfx86_cat) + len(pf) + len(pfx86)} location{ "s" if len(pf_cat) + len(pfx86_cat) + len(pf) + len(pfx86) > 1 else "" }')
+catalogs_cat = ['C:\Program Files', 'C:\Program Files (x86)']
+catalogs_ree = [win32con.KEY_WOW64_32KEY, win32con.KEY_WOW64_64KEY]
+ans = []
 
-for path in pf_cat + pfx86_cat + pf + pfx86:
+for cat in catalogs_cat:
+    ans += search(cat, name)
+
+for cat in catalogs_ree:
+    ans += parse_reg(name, win32con.HKEY_LOCAL_MACHINE, cat)
+
+print(f'Detected {len(ans)} location{ "s" if len(ans) > 1 else "" }')
+
+for path in ans:
     print(path)
