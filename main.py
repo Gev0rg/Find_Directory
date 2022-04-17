@@ -1,7 +1,3 @@
-from itertools import count
-from tokenize import Name
-from typing import Counter
-from unicodedata import name
 from search_cat import search
 from search_ree import parse_reg
 from sys import argv

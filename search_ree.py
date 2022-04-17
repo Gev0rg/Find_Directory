@@ -1,3 +1,5 @@
+# Функция поиска каталогов по реестру
+
 import winreg
 import win32con
 import sys
