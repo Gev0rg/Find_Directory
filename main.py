@@ -20,6 +20,8 @@ for cat in catalogs_cat:
 for cat in catalogs_ree:
     ans += parse_reg(name, win32con.HKEY_LOCAL_MACHINE, cat)
 
+ans = set(ans)
+
 print(f'Detected {len(ans)} location{ "s" if len(ans) > 1 else "" }')
 
 for path in ans:
